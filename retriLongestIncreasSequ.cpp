@@ -17,7 +17,7 @@ vector<int> printLongestIncreasStr(const vector<int> &nums) //return the assiata
     help.push_back(nums[0]),dp[0]=1;//help[0]=nums[0] is wrong, since help is uninitialized
     for(size_t i=1;i<nums.size();++i)
     {
-        if(help.back()<nums[i])
+        if(help.back()<nums[i])//current value is the maximum so dp[i]=help.size()
         {
             help.push_back(nums[i]);
             dp[i]=(int)help.size();
