@@ -40,7 +40,7 @@ vector<int> retriTheString(const vector<int> &dp, const vector<int> &nums)
     vector<int> rslt(maxlen);
     rslt[--maxlen]=nums[index];
     for(size_t k=index-1;(k+1)>0;--k)// the second number to push_back must be in the front
-    {
+    {//track from back to front so that the sequence can be in order
         if(nums[k]<nums[index]&&dp[k]==dp[index]-1){
             rslt[--maxlen]=nums[k];
             index=k;}
