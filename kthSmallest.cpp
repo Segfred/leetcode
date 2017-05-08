@@ -14,9 +14,9 @@ public:
     }
 private:
     void kthNode(TreeNode* root, int &k, TreeNode *&ret){
-        if(!root) return;
+        if(!root) return;//if(!root||!k) return;剪枝
         kthNode(root->left,k,ret);
-        if(--k==0) {
+        if(!--k) {
             ret=root;
             return;}
         
