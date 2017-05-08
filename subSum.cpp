@@ -2,7 +2,7 @@
 //  main.cpp
 //  subSum
 //
-//  Created by Zhao Tianqi on 2017/05/06.
+//  Created by Asmita on 2017/05/06.
 //  Copyright © 2017年 Asmita. All rights reserved.
 //
 
