@@ -38,7 +38,7 @@ private:
                     while(left<right&&nums[left]==nums[left-1]) ++left;
                     while(left<right&&nums[right]==nums[right+1]) --right;
                 }//end of if
-                else if(sum<target) ++left;
+                else if(sum<target) ++left;//必须要缩小范围，只能往里面走，不能往外(++right)
                 else --right;
             }// end of while        
         }// end of twoSum
