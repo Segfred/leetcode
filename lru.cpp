@@ -36,7 +36,7 @@ void put(int key, int value) {
     lst_.push_front(make_pair(key,value));//NOT make_pair<key,value>
     umap[key]=lst_.begin();
     if(lst_.size()>cap_) {
-        umap.erase(lst_.rbegin()->first);//pay attention to the method of dealing with the last element
+        umap.erase(lst_.rbegin()->first);//pay attention to the method of dealing with the last element,lst_.back().first也行
         lst_.pop_back();
     }
 }
