@@ -17,9 +17,9 @@ private:
         }
         
         for(size_t i=start;i<=nums.size()-k;++i){//NOT nums.size()-1
-            if(i>0&&nums[i]==nums[i-1]) continue;//do NOT forget depulicate handling
-            sol.push_back(nums[i]);
-            kSum(nums,sol,allSol,i+1,end,target-nums[i],k-1);
+            if(i>0&&nums[i]==nums[i-1]) continue;//do NOT forget depulicate handling，虽然可以1，1，2，3但因为在同一组，比如选第3个数2
+            sol.push_back(nums[i]);//出现了一次2，下次就是一样的了，比如1，1，2，2，3最后只有1，1，2，3是组内同一index不能重复，组内不同index
+            kSum(nums,sol,allSol,i+1,end,target-nums[i],k-1);//可以重复
             sol.pop_back();
         }
     }
