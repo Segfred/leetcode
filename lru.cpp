@@ -24,7 +24,7 @@ int get(int key) {
     if(ite==umap.end()) return -1;
     lst_.splice(lst_.begin(),lst_,ite->second);
     return ite->second->second;
-}
+}//把lst_中的ite->second个位置搬到lst_.begin()地方去
 
 void put(int key, int value) {
     auto ite=umap.find(key);
