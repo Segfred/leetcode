@@ -33,6 +33,6 @@ private:
 int cap_;
 int minfreq_;
 unordered_map<KEY,pair<VALUE,FRE>> elements;
-unordered_map<FRE,list<FRE>> freq;
-unordered_map<KEY,list<FRE>::iterator> locator;
+unordered_map<FRE,list<KEY>> freq;//whose <KEY,VALUE,FRE> 里的FRE全是当前FRE
+unordered_map<KEY,list<KEY>::iterator> locator;
 };
