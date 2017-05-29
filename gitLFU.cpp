@@ -6,7 +6,7 @@ public:
 if(locator.find(key)==locator.end()) return -1;
 auto listIte=locator[key];
 freq[elements[key].second++].erase(listIte);
-if(freq[minfreq_].empty()) ++minfreq_;//influenced by the last put or erase operation    
+if(freq[minfreq_].empty()) ++minfreq_;//influenced by the last put or erase operation,后面set还会调用get   
 freq[elements[key].second].push_front(key);//last put or erase on the minfreq_ key,then minfreq_ becomes the current key
 locator[key]=freq[elements[key].second].begin();
 return elements[key].first;
