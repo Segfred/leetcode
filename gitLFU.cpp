@@ -14,7 +14,7 @@ return elements[key].first;
     //delete is on the contrary
     
     void put(int key, int value) {
-if(get(key)!=-1) {
+if(get(key)!=-1) {//least frequent is decided by the key appearning times, not <key,value> pairs
 elements[key].first=value;
 return;
 }   
