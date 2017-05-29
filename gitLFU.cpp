@@ -14,11 +14,11 @@ return elements[key].first;
     //delete is on the contrary
     
     void put(int key, int value) {
-if(get(key)!=-1) {//least frequent is decided by the key appearning times, not <key,value> pairs
-elements[key].first=value;
+if(get(key)!=-1) {//least frequency is decided by the key appearning times, not <key,value> pairs
+elements[key].first=value;//存在的话只需要替换value,size不会增加
 return;
 }   
-if(elements.size()==cap_){
+if(elements.size()==cap_){//不存在增加之前要判断是否满了
 KEY temp=freq[minfreq_].back();
 locator.erase(temp);
 freq[elements[temp].second].pop_back();
