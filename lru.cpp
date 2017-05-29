@@ -2,8 +2,8 @@
 //http://www.jianshu.com/p/14f6db6ebfc5
 //  main.cpp
 //  LRU
-//
-//  Created by Asmita on 17/5/10.
+//forward_list不行，没有splice函数
+//  Created by Asmita on 17/5/10.forward.end()也是o(1)复杂度
 //  Copyright (c) 2017年 Asmita. All rights reserved.
 //
 
