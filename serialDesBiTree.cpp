@@ -31,7 +31,7 @@ helpser(root->right,out);
 
 TreeNode* helpdeser(istringstream &in){
 string str;
-in>>str;
+in>>str;//一次只取一个string，默认以空格作为分隔符，不用while(in>>str) 套递归会出麻烦
 if(str=="#") return nullptr;
 TreeNode* pnode=new TreeNode(stoi(str));
 pnode->left=helpdeser(in);
