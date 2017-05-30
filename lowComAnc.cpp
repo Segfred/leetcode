@@ -17,7 +17,7 @@ if(pleft&&pleft!=p&&pleft!=q) return pleft;
 TreeNode* pright=lowestCommonAncestor(root->right,p,q);     
 if(pright&&pright!=p&&pright!=q)  return pright;
 if(pleft&&pright) return root;
-return pleft? pleft:pright;
+return pleft? pleft:pright;//防止节点都在一边(比如左)，而又不是根节点的情况，比如5/6/7都在最左边，pleft=6
     }
 private:
 bool reachable(TreeNode* root, TreeNode* pnode){
