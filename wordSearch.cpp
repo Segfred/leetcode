@@ -51,7 +51,7 @@ private:
             if(nx>=0&&nx<m&&ny>=0&&ny<n&&!visited[nx][ny]&&ptree->next[board[nx][ny]-'a']) 
                 dfs(ptree->next[board[nx][ny]-'a'],visited,nx,ny,board,words,res);
         }
-        visited[x][y]=false;
+        visited[x][y]=false;//每个人都只管好自己的事情就够了，return之前先还原现场
         
     }
     
