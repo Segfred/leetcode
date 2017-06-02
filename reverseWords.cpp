@@ -39,3 +39,29 @@ int main(int argc, const char * argv[]) {
     cout <<str<<endl;
     return 0;
 }
+//below is the recursive method
+#include <iostream>
+#include <sstream>
+//#include <string>
+using namespace std;
+void help(istringstream &in, ostringstream &out){
+    string temp{};
+    if(in>>temp) help(in,out);
+    out<<temp<<" ";
+}
+
+void rever(string &str){
+    if(str.empty()) return;
+    istringstream in(str);
+    ostringstream out{};
+    help(in,out);
+    str=out.str().substr(0,out.str().size()-1);
+}
+
+int main(int argc, const char * argv[]) {
+    // insert code here...
+    string str{"I love it"};
+    rever(str);
+    cout << str<<endl;
+    return 0;
+}
