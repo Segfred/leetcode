@@ -3,7 +3,7 @@ public:
     bool searchMatrix(vector<vector<int>>& matrix, int target) {
 if(matrix.empty()||matrix[0].empty()) return false;
 const size_t m=matrix.size(), n=matrix[0].size();
-if(target<matrix[0][0]||target>matrix[m-1][n-1]) return false;
+if(target<matrix[0][0]||target>matrix[m-1][n-1]) return false;//先和边角比较，不行直接返回
 size_t left=0,right=m-1, mid;
 while(left<=right){
 mid=(left+right)/2;
