@@ -1,3 +1,21 @@
+
+//word break I
+#define contain(i,j,str,dict) find(dict.begin(),dict.end(),str.substr(j,i-j))!=dict.end()
+class Solution {
+public:
+    bool wordBreak(string &str, vector<string>& dict) {
+        if(str.empty()||dict.empty()) return false;
+        const int n=(int)str.length();
+        vector<bool> dp(n+1,false);
+        dp[0]=true;
+        for(int i=1;i<n+1;++i){
+            for(int j=i-1;j>=0;--j)
+                if(dp[j]&&contain(i,j,str,dict)) {dp[i]=true;break;}            
+        }//end i loop
+        return dp[n];
+    }
+};
+//word break II
 class Solution {
 public:
     vector<string> wordBreak(string s, vector<string>& wordDict) {
