@@ -10,7 +10,7 @@ public:
             else{
                 if(right-left>maxlen) maxlen=right-left;
                 while(s[left]!=s[right]) hash[s[left++]]=0;
-                ++left,++right;//这里别忘了前进right
+                ++left,++right;//这里别忘了前进right,left已经移动到不相等的地方了，可以进行下一次比较，所以移动right
             }//end of else
         }//end of while 
         if(right-left>maxlen) maxlen=right-left;
