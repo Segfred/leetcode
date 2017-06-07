@@ -6,6 +6,7 @@
  *     ListNode(int x) : val(x), next(NULL) {}
  * };
  */
+//recursive solution, O(n) space complexity
 class Solution {
 public:
     bool isPalindrome(ListNode* head) {
@@ -25,4 +26,25 @@ if(front->val!=back->val) {res=false; return;}
 front=front->next;
 }
 ListNode* front;
+};
+//non recursive solution, O(1) space
+class Solution {
+public:
+    bool isPalindrome(ListNode* head) {
+if(!head||!head->next) return true;
+ListNode* pslow=head, *pfast=head;
+while(pfast->next&&pfast->next->next) pslow=pslow->next, pfast=pfast->next->next;//不是pfast而是pfast->next开始
+ListNode* head2=pslow->next, *pre=nullptr;//第二段head直接接地，注意此细节处理
+while(head2){
+ListNode* after=head2->next;
+head2->next=pre;
+pre=head2;
+head2=after;
+}  //reverse the second half list
+while(pre){
+if(pre->val!=head->val) return false;
+head=head->next, pre=pre->next;
+}
+return true;
+    }
 };
