@@ -1,3 +1,16 @@
+//只需要遍历一次
+class Solution {
+public:
+    int countPrimes(int n) {
+if(n<=2) return 0;
+vector<bool> flag(n,true);
+int com=0, limit=sqrt(n);
+for(int i=2;i<=limit;++i)
+for(int j=i;i*j<n;++j) if(flag[i*j]) ++com, flag[i*j]=false;
+return n-2-com;       
+    }
+};
+
 class Solution {
 public:
     int countPrimes(int n) {
