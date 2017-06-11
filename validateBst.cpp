@@ -17,7 +17,7 @@ return result;
     }
 private:
 
-void inOrder(TreeNode* pnode, bool &res, TreeNode* &pre){//必须要用引用，否则从左边返回的时候和原来的pre进行比较了
+void inOrder(TreeNode* pnode, bool &res, TreeNode* &pre){//必须要用引用，否则返回的时候和原来的pre进行比较了
 if(!pnode) return;
 inOrder(pnode->left,res,pre);
 if(!res) return;//pruning, return once res is false
