@@ -16,27 +16,23 @@ struct ListNode {
 
 class Solution {
 public:
-    ListNode* reverseBetween(ListNode* head, int m, int n) {
-        if(!head||m>=n||m<1) return head;
-        ListNode *dummy=new ListNode(-1);
-        dummy->next=head;
-        head=dummy;
-        for(int i=1;i<=m-1;++i) head=head->next;
-        ListNode *pre=head->next,*cur=head->next->next;
-        for(int i=m;i<n;++i)
-        {
-            ListNode *later=cur->next;
-            cur->next=pre;
-            pre=cur;
-            cur=later;
-        }
-        head->next->next=cur;
-        head->next=pre;
-        head=dummy->next;
-        delete dummy;
-        return head;
+    bool isPalindrome(ListNode* head) {
+if(!head||!head->next) return true;
+ListNode* pslow=head, *pfast=head;
+while(pfast->next&&pfast->next->next) pslow=pslow->next, pfast=pfast->next->next;//不是pfast而是pfast->next开始
+ListNode* head2=pslow->next, *pre=nullptr;//第二段head直接接地，注意此细节处理
+while(head2){
+ListNode* after=head2->next;
+head2->next=pre;
+pre=head2;
+head2=after;
+}  //reverse the second half list
+while(pre){
+if(pre->val!=head->val) return false;
+head=head->next, pre=pre->next;
+}
+return true;
     }
-    
 };
 
 
