@@ -23,6 +23,6 @@ inOrder(pnode->left,res,pre);
 if(!res) return;//pruning, return once res is false
 if(pre&&pnode->val<=pre->val) {res=false;return;}//对第一个遍历到的节点不设置最小值，因此初始值赋为空
 pre=pnode;
-inOrder(pnode->right,res,pre);
+inOrder(pnode->right,res,pre);//即使引用也不能传pnode,还是会发生之前的问题
 }
 };
