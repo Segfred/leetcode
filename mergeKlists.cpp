@@ -13,8 +13,8 @@ for(size_t i=0;i<lists.size();++i) if(lists[i]) pq.push(lists[i]);//error handli
 ListNode* dummy=new ListNode(-1), *pcur=dummy;
 while(!pq.empty()){
 //pcur->next=new ListNode(pq.top()->val);//非front
-pcur->next=pq.top();
-pcur=pcur->next;
+pcur->next=pq.top();//新加入的接在尾部
+pcur=pcur->next;//移动到新的尾巴
 pq.pop();
 if(pcur->next) pq.push(pcur->next);
 }
