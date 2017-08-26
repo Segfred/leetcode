@@ -34,7 +34,7 @@ public:
         for(string &ele:words) ptree->insert(ele);
         for(int i=0;i<m;++i){
             for(int j=0;j<n;++j){
-                if(ptree->root->next[board[i][j]-'a'])//是根节点的子节点，不是树本身
+                if(ptree->root->next[board[i][j]-'a'])//是根节点的子节点，不是树本身，这里判断指针非空，只是存在前缀
                 dfs(ptree->root->next[board[i][j]-'a'],visited,i,j,board,words,res);
             }//首字母必须要在树中，否则一定不可能
         }
@@ -42,8 +42,8 @@ public:
     }//end findWords
 private:
     void dfs(Node* ptree,vector<vector<bool>> &visited,int x,int y,vector<vector<char>>& board, vector<string>& words, vector<string> &res){//dfs第一个参数是node*,非Trie*
-        if(!ptree->val.empty()) {res.emplace_back(ptree->val);ptree->val.clear();}//找到一个之后删除，去重
-        visited[x][y]=true;
+        if(!ptree->val.empty()) {res.emplace_back(ptree->val);ptree->val.clear();}//这里判断值非空，单词存在。找到一个之后删除，去重
+        visited[x][y]=true;//上一步不能直接后退，只是找到了一个前缀可能还有别的，比如run,running都要找出来，后退的话永远找不到running
         const int m=(int)board.size(), n=(int)board[0].size();
         int dir[4][2]{{-1,0},{1,0},{0,1},{0,-1}};
         for(int k=0;k<4;++k){
