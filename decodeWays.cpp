@@ -19,3 +19,17 @@ int numDecodings(string s) {
     return w;
 }
 };
+
+class Solution {
+public:
+    int numDecodings(string str) {
+if(str.empty()||str[0]=='0') return 0;
+int cur=1,pre1=1,pre2=1;//注意pre2不能初始化为0，否则全是0,pre=1，默认第一位合法，所以cur也可以默认合法
+for(size_t i=2;i<=str.size();++i){
+cur=str[i-1]=='0'? 0:pre1;
+if(str[i-2]=='1'||str[i-2]=='2'&&str[i-1]>='0'&&str[i-1]<='6') cur+=pre2;
+pre2=pre1, pre1=cur;//别忘了滚动
+}  
+return cur;     
+    }
+};
