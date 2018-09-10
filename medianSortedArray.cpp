@@ -8,6 +8,7 @@ if(sum&0x1) return getK(nums1,nums2,0,0,s1,s2,sum/2+1);
 else   return (getK(nums1,nums2,0,0,s1,s2,sum/2)+getK(nums1,nums2,0,0,s1,s2,sum/2+1))/2;      
     }
 private:
+//left1和left2分别表示还剩多少数
 double getK(const vector<int> &vec1, const vector<int> &vec2, START st1, START st2, int left1, int left2, int k){//k是第几，不是下标
 if(left1>left2) return getK(vec2, vec1, st2, st1, left2, left1, k);
 if(left1==0) return vec2[st2+k-1];
