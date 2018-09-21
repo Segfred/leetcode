@@ -41,7 +41,7 @@ head2->next=pre;
 pre=head2;
 head2=after;
 }  //reverse the second half list
-while(pre){
+while(pre){//奇数的话pre比前一半小，因此可以直接判断它
 if(pre->val!=head->val) return false;
 head=head->next, pre=pre->next;
 }
