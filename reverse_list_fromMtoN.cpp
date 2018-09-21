@@ -6,6 +6,7 @@
  *     ListNode(int x) : val(x), next(NULL) {}
  * };
  */
+//比如1->2->3->4->5反转2，4之间之后变成1->4->3->2->5
 class Solution {
 public:
     ListNode* reverseBetween(ListNode* head, int m, int n) {
