@@ -22,8 +22,8 @@ public:
             pre=cur;
             cur=later;
         }
-        head->next->next=cur;
-        head->next=pre;
+        head->next->next=cur;//这里代表1->4->指向的是5（即4后面是5，当然这时候就没1什么事了）
+        head->next=pre;//这里代表的是1->2，有1的事，先确定结尾再确定开头
         head=dummy->next;
         delete dummy;
         return head;
