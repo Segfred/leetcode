@@ -4,3 +4,6 @@ for k = 1:m
 分为碎还是不碎
 碎了的话k-1, n-1，没碎的话m-k,n(往下的不用试了）
 取所有k的最小值，并且更新最小值的时候打印出来k
+https://www.cnblogs.com/grandyang/p/5677550.html
+[LeetCode] Guess Number Higher or Lower II 猜数字大小之二 min max，求两个最大值之间哪个k最小，和扔鸡蛋的问题很像
+在区间[i, j]之前遍历所有的k，使得k对应的分裂的两个最大值最小
