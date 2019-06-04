@@ -1,0 +1,18 @@
+move zeroes
+class Solution {
+public:
+    void moveZeroes(vector<int>& nums) {
+        if (nums.empty()) return;
+        int i = 0;
+        int j = nums.size() - 1;
+        while (i < j) {
+            while(nums[i] != 0 && i < j) ++i;
+            while(nums[j] == 0 && i < j) --j;
+            if (i != j) std::swap(nums[i++], nums[j--]);
+        }
+        
+    }
+};
+比较常见的错误的解法，两个指针类似快排，但是会打乱原来顺序
+回忆一下常见排序算法的稳定性
+http://maywanting.wang/2016/04/13/20160413algorithm-sort/
