@@ -1,0 +1,31 @@
+递减栈
+class Solution {
+public:
+    int trap(vector<int>& height) {
+        stack<int> st;
+        int i = 0, res = 0, n = height.size();
+        while (i < n) {
+            if (st.empty() || height[i] <= height[st.top()]) {
+                st.push(i++);
+            } else {
+                int t = st.top(); 
+                std::cout <<"i="<< i << ", poped index=" << t << ", and peak=" << height[t];
+                st.pop();
+                if (st.empty()) continue;
+                std::cout << "height is" << height[i] << ", i is " << i << ", left is " << st.top()  \
+                    <<", plus=" << (min(height[i], height[st.top()]) - height[t]) * (i - st.top() - 1)                           << std::endl;
+                
+                res += (min(height[i], height[st.top()]) - height[t]) * (i - st.top() - 1);
+            }
+        }
+        return res;
+    }
+};
+[0,1,0,2,1,0,1,3,2,1,2,1]
+i=1, poped index=0, and peak=0i=3, poped index=2, and peak=0height is2, i is 3, left is 1, plus=1
+i=3, poped index=1, and peak=1i=6, poped index=5, and peak=0height is1, i is 6, left is 4, plus=1
+i=7, poped index=6, and peak=1height is3, i is 7, left is 4, plus=0
+i=7, poped index=4, and peak=1height is3, i is 7, left is 3, plus=3
+i=7, poped index=3, and peak=2i=10, poped index=9, and peak=1height is2, i is 10, left is 8, plus=1
+
+每一次只是关注最底层的高度那么深，不是凹槽能装的全部水，所以不如dp好理解
