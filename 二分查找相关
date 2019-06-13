@@ -1,0 +1,63 @@
+旋转数组的最小元素
+    int findMin(vector<int>& nums) {
+        int l = 0, r = nums.size() - 1, m = 0;
+        while (l<=r) {
+            if (nums[l] < nums[r]) return nums[l];//关键，有可能已经排好序了
+            if (l == r) return nums[l];
+            if (r - l == 1) return std::min(nums[l], nums[r]);
+            m = l+ (r-l)/2;
+            if (nums[l] < nums[m]) l = m + 1;
+            else r = m;//只有一个元素会引起死循环
+        }
+        return nums[l];
+    }
+    写得非常丑陋，各种corner case，只是为了验证之前写的二分查找模板https://github.com/Segfred/Algorithms/blob/master/biSearch.cpp
+    并且最后的r = m可能引起死循环
+下面是比较优雅的写法，参见网友https://www.cnblogs.com/NickyYe/p/4264928.html：
+mid不要和start比较，和end比较，为什么？考虑两个元素2，1 mid会等于end，但除非一个元素，mid不会等于end
+另外就是等号的处理方式，什么时候会相等？只有一个元素的时候
+另外就是加一减一的问题，m < end, end =m ? m - 1?不能跳过去，和之前的二分有区别，边界case比较多（一个元素直接就返回不能再算了，再算就死循环）
+class Solution(object):
+    def findMin(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        l = 0
+        r = len(nums) - 1
+        m = 0
+        while (l<=r):
+            if r == l:
+                return nums[l]
+            m = (l + r)/2
+            if nums[m] < nums[r]:
+                r = m#312不能超过去，m - 1的话就超了
+            else:
+                l = m + 1#一定可以超过去，不是还有更小的么（m大于r，所以还有r兜底，不怕）
+        return -1
+
+同理，这一题也可以用同样的方法做：Search in Rotated Sorted Array
+
+class Solution(object):
+    def search(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: int
+        """
+        l , r, m = 0, len(nums) - 1, 0
+        while (l <= r ):
+            if l == r:
+                return l if nums[l] == target else -1
+            m = (l + r)/2
+            if nums[m] < nums[r]:
+                if nums[m] < target and target <= nums[r]:
+                    l = m + 1
+                else:
+                    r = m
+            elif nums[m] > nums[r]:
+                if nums[l] <= target <= nums[m]:
+                    r = m
+                else:
+                    l = m + 1
+        return -1
