@@ -8,3 +8,5 @@ https://www.cnblogs.com/grandyang/p/5677550.html
 [LeetCode] Guess Number Higher or Lower II 猜数字大小之二 min max，求两个最大值之间哪个k最小，和扔鸡蛋的问题很像
 在区间[i, j]之前遍历所有的k，使得k对应的分裂的两个最大值最小
 https://www.geeksforgeeks.org/subarray-whose-sum-is-closest-to-k/ 一个集合有正有负，选取其中的数使和最接近给定的值
+edit distance和最长公共子序列为什么最后一个相等就不用比较了，一定是ij=i-1j-1
+考虑ij-1,j删除已经增加了一次，而i最多匹配一次，最多让前面减少一，一来一回不会比i-1j-1更好
