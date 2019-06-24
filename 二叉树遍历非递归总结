@@ -1,0 +1,5 @@
+普通解法压栈入栈记忆起来比较繁琐，什么栈是不是空之类的
+考虑a
+b     c
+无论是preorder, inorder, 还是postorder都可以拆解成print a, visit b, visit c这三种操作，但是要入栈，所以倒过来，先入c, b, a这种顺序来，剩下就是
+封装实现的细节问题
