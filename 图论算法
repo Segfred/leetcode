@@ -1,0 +1,4 @@
+is graph bipartite 
+https://www.cnblogs.com/grandyang/p/8519566.html
+valid(graph, 1, i, colors)之所以这里只用1是因为题目给的是一个顶点的所有连通分量
+都不连通了，所以其他顶点想是什么就是什么，管不着
