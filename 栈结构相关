@@ -1,0 +1,7 @@
+https://blog.csdn.net/ljiabin/article/details/46489545
+队列实现栈，基本思想插队，每次能插到队头就可以了，怎么做到呢？放到outQueue里，然后放进去新的，同时把所有的enQueue挪到outQueue里，最后交换两个队列
+https://www.cnblogs.com/grandyang/p/4568796.html
+或者只是用一个queue，push到尾部就可以
+https://www.cnblogs.com/grandyang/p/4626238.html
+同理如果用队列实现栈的话同样的思路就可以，但是有个优化的方法，直接做效率比较低
+https://www.cnblogs.com/grandyang/p/4626238.html
