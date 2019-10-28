@@ -26,3 +26,7 @@ k有n-1种取值，所以Dn=(n-1)(Dn-1 + Dn-2)
 6、http://chuansong.me/n/1607394352821 decode ways可以由两种状态得到：
 f(i)=f(i-1)+f(i-2)含义是，f(i)可以由两种状态得到：前面i-1个字符在一起或者前面i-2个字符在一起。当然有条件，条件不满足的话只能由一种状态得到。
 若第i位为0，表明没法以单独拿出来前面i-1位作为结果。只能再往前看
+
+7、scramble string这一篇总结的比较好
+两个字符串是不是可以scramble实际上可以按照长度一点点来扩展
+https://blog.csdn.net/linhuanmars/article/details/24506703
