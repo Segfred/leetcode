@@ -1,0 +1,5 @@
+链表专题
+partition list
+快慢指针稍微比较好理解，但是为什么要用runner->next进行比较？是否可以直接用runner本身进行比较？不行，runner->next是为了保存快指针的前一个节点
+去掉的话就无法达到同样效果
+https://blog.csdn.net/linhuanmars/article/details/24446871
