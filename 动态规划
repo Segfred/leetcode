@@ -30,3 +30,9 @@ f(i)=f(i-1)+f(i-2)含义是，f(i)可以由两种状态得到：前面i-1个字�
 7、scramble string这一篇总结的比较好
 两个字符串是不是可以scramble实际上可以按照长度一点点来扩展
 https://blog.csdn.net/linhuanmars/article/details/24506703
+
+8、Russian Doll Envelopes
+https://blog.csdn.net/qq508618087/article/details/51619435
+https://www.acwing.com/solution/LeetCode/content/2865/
+为什么宽度从小到大，高度从大大小？
+因为这样可以保证后面高度大于前面时候一定宽度也大于前面（因为宽度相等高度变小，现在高度变大了且在后面宽度也一定大），否则6，4 6，7高度虽然大了，width却是相等的
