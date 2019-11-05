@@ -5,3 +5,7 @@ https://www.cnblogs.com/grandyang/p/4568796.html
 https://www.cnblogs.com/grandyang/p/4626238.html
 同理如果用队列实现栈的话同样的思路就可以，但是有个优化的方法，直接做效率比较低
 https://www.cnblogs.com/grandyang/p/4626238.html
+
+132 pattern为什么直接记录遍历到的最大值和最小值不行？
+因为最大值可能在最小值前面，这就需要知道先后顺序了，因此可以用单调栈做
+https://www.jianshu.com/p/910fe372d9a0 这里的3位置是序号，不是数字，3位置也就是第二大的数
