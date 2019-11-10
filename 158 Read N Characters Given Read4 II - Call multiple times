@@ -1,0 +1,20 @@
+https://www.cnblogs.com/grandyang/p/5181672.html
+
+class Solution {
+public:
+    int read(char *buf, int n) {
+        for (int i = 0; i < n; ++i) {//注意这里不是n/4，直接是n，意思是要一位一位跟上write指针
+            if (readPos == writePos) {//这样可以保证每次读指针都能跟上写，即使多写了就从剩下的开始读
+            //比如读3，read一次写了4，读2一看不想等，read前进1发现想等了然后再开始继续读4
+                writePos = read4(buff);//每次只能读4个，内容读到了buff指针里面
+                readPos = 0;//说明开始新的一轮设置，重置readPos指针
+                if (writePos == 0) return i;
+            }
+            buf[i] = buff[readPos++];
+        }
+        return n;
+    }
+private:
+    int readPos = 0, writePos = 0;
+    char buff[4];
+};
