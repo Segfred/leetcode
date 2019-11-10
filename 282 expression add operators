@@ -1,3 +1,4 @@
+//基本思想是保存当前的计算结果和全局计算结果，不断把当前计算结果根据条件放到全局计算结果中
 class Solution {
 public:
     vector<string> addOperators(string num, int target) {
