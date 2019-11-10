@@ -1,5 +1,5 @@
 https://www.cnblogs.com/grandyang/p/5181672.html
-
+//这里写的意思是每次调用read函数都会写入4个指针到buff，因此需要设置read的buf指针一位一位跟上，即write是超前于读
 class Solution {
 public:
     int read(char *buf, int n) {
