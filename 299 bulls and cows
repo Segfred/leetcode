@@ -1,0 +1,3 @@
+https://www.cnblogs.com/grandyang/p/4929139.html
+其中第三种方法为什么hash[secret[i]] -- > 0 说明之前在guess[i]上加过（出现过）
+同理hash[guess[i]] ++ < 0说明之前在secret上减过（ 出现过），谁加谁减无所谓，但是加一定是小于0，减一定是大于0
