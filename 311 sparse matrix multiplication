@@ -1,0 +1,21 @@
+https://www.programcreek.com/2014/10/leetcode-sparse-matrix-multiplication-java/
+public int[][] multiply(int[][] A, int[][] B) {
+    //validity check
+ 
+    int[][] C = new int[A.length][B[0].length];
+ 
+    for(int i=0; i<C.length; i++){
+        for(int j=0; j<C[0].length; j++){
+            int sum=0;
+            for(int k=0; k<A[0].length; k++){
+                sum += A[i][k]*B[k][j];
+            }
+            C[i][j] = sum;
+        }
+    }
+ 
+    return C;
+}
+先看原始的解法，随着k的变化里面的数都在变化(Aik, Bkj)，因此考虑固定k，只变j，调整两个循环的顺序（注意这个思路很重要，也不要考虑具体是怎么算的）
+这样就能根据Aik是否为0减少一层循环了，(Aik不变）稀疏矩阵，
+大概一行只有一个非0，大致可以降低一个数量级，k是公共元素，因此必须改变k和j的循环顺序，否则无法减少运算。
