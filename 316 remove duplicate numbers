@@ -1,0 +1,5 @@
+https://www.cnblogs.com/grandyang/p/5085379.html
+去掉重复字母
+比如bcabc，刚开始一直进，到a发现a比已有结果最后一个元素小并且后面还有，那就pop，并且是个while循环，b也pop出去了
+顺序是bc, pop c, pop b, a, b, c
+另一个cbacdcbc , c, pop c, b, pop b, acd,(c访问过跳过)b(后面没有d了),(c访问过了跳过) 
