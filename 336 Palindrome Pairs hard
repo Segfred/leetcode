@@ -1,0 +1,3 @@
+http://fisherlei.blogspot.com/2017/07/leetcode-palindrome-pairs-solution.html
+找出所有的回文字符串这两种总结的比较简洁
+candidate不是在左边就是在右边，substr可以是空也可以是满，这样就能包含所有的情况。
