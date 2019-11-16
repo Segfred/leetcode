@@ -1,0 +1,43 @@
+class Solution {
+public:
+    int shortestDistance(vector<vector<int>>& grid) {
+        int res = INT_MAX, buildingCnt = 0, m = grid.size(), n = grid[0].size();
+        vector<vector<int>> dist(m, vector<int>(n, 0)), cnt = dist;
+        vector<vector<int>> dirs{{0,-1},{-1,0},{0,1},{1,0}};
+        for (int i = 0; i < m; ++i) {
+            for (int j = 0; j < n; ++j) {
+                if (grid[i][j] == 1) {
+                    ++buildingCnt;
+                    queue<pair<int, int>> q;
+                    q.push({i, j});
+                    vector<vector<bool>> visited(m, vector<bool>(n, false));
+                    int level = 1;
+                    while (!q.empty()) {
+                        int size = q.size();
+                        for (int s = 0; s < size; ++s) {//第一层就一次
+                            int a = q.front().first, b = q.front().second; q.pop();
+                            for (int k = 0; k < dirs.size(); ++k) {
+                                int x = a + dirs[k][0], y = b + dirs[k][1];
+                                if (x >= 0 && x < m && y >= 0 && y < n && grid[x][y] == 0 && !visited[x][y]) {
+                                    dist[x][y] += level;//下面的cnt是代表联通性的，和bfs没关系，从每个建筑出发只会加一次
+                                    ++cnt[x][y];//这里不是说累加，而是代表是否可达，只要可达只在第一次visited的时候会加1，如果从有的点bfs不到这个点就不能算
+                                    visited[x][y] = true;
+                                    q.push({x, y});
+                                }
+                            }
+                        }//第二层有两个邻居，size = 2
+                        ++level;
+                    }
+                }
+            }
+        }
+        for (int i = 0; i < m; ++i) {
+            for (int j = 0; j < n; ++j) {
+                if (grid[i][j] == 0 && cnt[i][j] == buildingCnt) {//只要这个点和其他建筑都联通cnt就等于buildingCnt
+                    res = min(res, dist[i][j]);
+                }
+            }
+        }
+        return res == INT_MAX ? -1 : res;
+    }
+};
