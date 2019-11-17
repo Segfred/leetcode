@@ -1,0 +1,3 @@
+http://bookshadow.com/weblog/2016/05/31/leetcode-data-stream-as-disjoint-intervals/
+这里面找到左边的floor，类似于lower_bound(<=)但是不一样, 如果大于的话就减一，应该是小于等于）和右边的upper_bound(严格大于)
+但是c艹没有floor函数比较麻烦，floor是<=，lower_bound是>=, upper_bound是大于，并且网上的答案无法通过编译，还要再看
