@@ -1,0 +1,75 @@
+490 the maze，很难的dfs了，主要是visited数组的理解
+https://www.jianshu.com/p/602b2022bdc9
+class Solution {
+public:
+
+    bool isValid(int x, int y, vector<vector<int>>& maze){
+        if(x >= 0 && x < maze.size() && y >= 0 && y < maze[0].size() && maze[x][y] == 0) return true;
+        return false;
+    }
+
+    bool dfs(vector<vector<int>>& maze, vector<vector<bool>> &visited, vector<int> cur, vector<int>& destination){
+
+        if(cur[0] == destination[0] && cur[1] == destination[1]) return true;//为什么碰到这一点就说明可以停下？因为终止条件是撞到了墙，说明这一点肯定是停下的那一点
+        else if(visited[cur[0]][cur[1]]) return false;
+        visited[cur[0]][cur[1]] = true;//为什么访问过一定是false？dfs之前访问过了如果为true就直接返回了不会有接下来的dfs（失败的延续性, b失败，a->b->...肯定也失败）
+        vector<pair<int, int>> directions = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};//碰到visited一定会返回的，就看是返回什么
+        for(int i=0; i<4; i++){
+            int next_x = cur[0], next_y = cur[1];
+            while(isValid(next_x + directions[i].first, next_y + directions[i].second, maze)){
+                 next_x += directions[i].first;
+                 next_y += directions[i].second; 
+            }//说明next_x, next_y一定停下来了，就看是不是停在了正确的地方
+            if(dfs(maze, visited, {next_x, next_y}, destination)) return true;
+        }
+        return false;
+    }
+
+    bool hasPath(vector<vector<int>>& maze, vector<int>& start, vector<int>& destination) {
+        if(maze.empty() || maze[0].empty() || start.empty() || destination.empty()) return 0;
+        int row = maze.size(), col = maze[0].size();
+        vector<vector<bool>> visited(row, vector<bool>(col, false));
+        return dfs(maze, visited, start, destination);
+    }
+};
+
+the maze II
+
+https://www.jianshu.com/p/b105dec89952
+为什么ij 访问过了还不能停？回想dijsktra，访问过的点如果路径可以变短是可以继续访问的。
+class Solution {
+public:
+
+    bool isValid(vector<vector<int>>& maze, int x, int y){
+        if(x >= 0 && x < maze.size() && y >= 0 && y < maze[0].size() && maze[x][y] == 0) return true;
+        return false;
+    }
+    
+    int compute(int x1, int y1, int x2, int y2){
+         return abs(x1-x2) + abs(y1-y2);
+    }
+    
+    void dfs(vector<vector<int>>& maze, vector<vector<int>> &distance, int i, int j){//可以剪枝，碰到终点就停下
+        int row = maze.size(), col = maze[0].size();//distij有值也不能停，因为可能这个点能让其他的xy变得更小
+        vector<pair<int, int>> directions = {{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+        for(auto it : directions){
+            int x = i, y = j;
+            while(isValid(maze, x + it.first, y + it.second)){
+                x += it.first; y += it.second;
+            }
+            if(distance[x][y] > distance[i][j] + compute(x, y, i, j)){
+                distance[x][y] = distance[i][j] + compute(x, y, i, j);
+                dfs(maze, distance, x, y);
+            }
+        }
+    }
+    
+    int shortestDistance(vector<vector<int>>& maze, vector<int>& start, vector<int>& destination) {
+        if(maze.empty() || maze[0].empty() || start.empty() || destination.empty()) return -1;
+        int row = maze.size(), col = maze[0].size();
+        vector<vector<int>> distance(row, vector<int>(col, INT_MAX));
+        distance[start[0]][start[1]] = 0;
+        dfs(maze, distance, start[0], start[1]);
+        return distance[destination[0]][destination[1]] == INT_MAX ? -1 : distance[destination[0]][destination[1]];
+    }
+};
