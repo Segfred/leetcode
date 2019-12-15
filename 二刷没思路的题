@@ -1,0 +1,32 @@
+95 Unique Binary Search Trees II
+https://www.cnblogs.com/grandyang/p/4301096.html
+这题直接递归也有细节，必须有起点终点，只有一个数字dfs(n)还不行，因为要返回所有结果的，要dfs(start, end)才行。另外一点就是对根节点要不要单独处理？
+也就是说start是根节点还是左子树根节点？应该是根节点的（需要单独处理），想一下只有一个节点的情况。直接一个节点的话start == end，然后在dfs遍历的时候
+左右子树都为空。遍历的时候实际上也就是划分不同子树的过程。
+注意dp的写法，中间记录一些访问过的区间，实际上也可以当作哈希表，避免重复计算。
+class Solution {
+public:
+    vector<TreeNode*> generateTrees(int n) {
+        if (n == 0) return {};
+        vector<vector<vector<TreeNode*>>> memo(n, vector<vector<TreeNode*>>(n));
+        return helper(1, n, memo);
+    }
+    vector<TreeNode*> helper(int start, int end, vector<vector<vector<TreeNode*>>>& memo) {
+        if (start > end) return {nullptr};
+        if (!memo[start - 1][end - 1].empty()) return memo[start - 1][end - 1];
+        vector<TreeNode*> res;
+        for (int i = start; i <= end; ++i) {
+            auto left = helper(start, i - 1, memo), right = helper(i + 1, end, memo);
+            for (auto a : left) {
+                for (auto b : right) {
+                    TreeNode *node = new TreeNode(i);
+                    node->left = a;
+                    node->right = b;
+                    res.push_back(node);
+                }
+            }
+        }
+        return memo[start - 1][end - 1] = res;
+    }
+};
+
