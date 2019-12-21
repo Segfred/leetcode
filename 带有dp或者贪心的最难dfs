@@ -44,7 +44,91 @@ class Solution {
         return false;
     }
 }
-505	The Maze II
+下面是自己写的bfs
+class Solution {
+public:
+    bool hasPath(vector<vector<int>>& maze, vector<int>& start, vector<int>& destination) {
+        int row = maze.size(), col = maze[0].size();
+        std::vector<std::vector<bool>> visited(row, std::vector<bool>(col, false));
+        std::queue<std::pair<int, int>> que;
+        int destx, desty = destination[0], destination[1];
+        que.push(std::make_pair(desyx, desty));//函数有模板的实参推演
+        visited[start[0]][start[1]] = true;
+        std::vector<std::vector<int>> dirs{{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
+
+        while (!que.empty()) {
+            auto top = que.top();
+            int curx, cury = top.first, top.second;
+            que.pop();
+            for (auto& dir:dirs) {
+                int x = curx, y = cury;
+                int newx = dir[0], newy = dir[1];//相当于普通的一步bfs，不能改变原来的x，y
+                while ( x + newx >= 0 && x + newx < row && y + newy >= 0 && y + newy < col && maze[x + newx][y + newy] == 0) {
+                    x += newx;
+                    y += newy;
+                }
+                if (x == destx && y == desty) {//这时候x，y一定是合法的
+                    return true;
+                }
+                if (!visited[x][y]) {
+                    visited[x][y] = true;//别忘了保存访问过的节点信息
+                    que.push({x, y});
+                }
+            }
+        }
+        return false;//别忘了最后返回false
+    }
+};
+https://www.jianshu.com/p/602b2022bdc9 可以看下上面写的答案对比
+505	The Maze II 也是使用dijkstra
+class Solution {
+public:
+    int shortestDistance(vector<vector<int>>& maze, vector<int>& start, vector<int>& destination) {
+        vector<vector<int>> dirs{{0,-1},{-1,0},{0,1},{1,0}};
+        int row = maze.size(), col = maze[0].size();
+        std::vector<std::vector<int>> dis(row, std::vector<int>(col, INT_MAX));
+        std::vector<std::vector<bool>> known(row, std::vector<bool>(col, false));
+        //auto compare = [](const nodetype& nodea, const nodetype& nodeb) {return nodea.first > nodeb.first;};
+        //std::priority_queue<nodetype, std::vector<nodetype>, decltype(compare)> que(compare);
+        //下面这种不带compare的写法是错误的
+        //std::priority_queue<nodetype, std::vector<nodetype>, decltype(compare)> que;
+        std::priority_queue<nodetype, std::vector<nodetype>, comparator> que;
+        int destx = destination[0], desty = destination[1];
+        int sx = start[0], sy = start[1];
+        que.push({0, {sx, sy}});//待确认是否支持
+        while (!que.empty()) {
+            auto top = que.top();
+            int weight = top.first, curx = top.second.first, cury = top.second.second;
+            if (curx == destx && cury == desty) {//终止条件，判断到目标点就结束了
+                return weight;
+            }
+            known[curx][cury] = true;
+            que.pop();
+            for (auto& dir:dirs) {
+                int x = curx, y = cury;
+                int newx = dir[0], newy = dir[1];//相当于普通的一步bfs，不能改变原来的x，y
+                int step = 0;//前进了几步
+                while ( x + newx >= 0 && x + newx < row && y + newy >= 0 && y + newy < col && maze[x + newx][y + newy] == 0) {
+                    ++step;
+                    x += newx;
+                    y += newy;
+                }
+                if (!known[x][y] && weight + step < dis[x][y]) {//已知的话就不用存了，剪枝
+                    dis[x][y] = weight + step;
+                    que.push({weight + step, {x, y}});
+                }
+            }
+        }
+        return -1;
+    }
+private:
+    typedef std::pair<int, std::pair<int, int>> nodetype;
+    struct comparator {
+        bool operator()(const nodetype& nodea, const nodetype& nodeb) {
+            return nodea.first > nodeb.first;};
+    };
+};
+
 499	The Maze III
 贪吃蛇 
 longest increasing path in a matrix
