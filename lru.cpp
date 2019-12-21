@@ -6,6 +6,7 @@
 //  Created by Asmita on 17/5/10.forward.end()也是o(1)复杂度
 //  Copyright (c) 2017年 Asmita. All rights reserved.
 //
+//https://blog.csdn.net/juzihongle1/article/details/77930820 看这个链接比较简洁，不用什么splice函数，直接调用put
 
 #include <iostream>
 #include <unordered_map>
