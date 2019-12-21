@@ -51,14 +51,15 @@ public:
         int row = maze.size(), col = maze[0].size();
         std::vector<std::vector<bool>> visited(row, std::vector<bool>(col, false));
         std::queue<std::pair<int, int>> que;
-        int destx, desty = destination[0], destination[1];
-        que.push(std::make_pair(desyx, desty));//函数有模板的实参推演
+        int destx destination[0], desty = destination[1];
+        que.push(std::make_pair(destx, desty));//函数有模板的实参推演
         visited[start[0]][start[1]] = true;
         std::vector<std::vector<int>> dirs{{-1, 0}, {1, 0}, {0, -1}, {0, 1}};
 
         while (!que.empty()) {
-            auto top = que.top();
-            int curx, cury = top.first, top.second;
+            //auto top = que.top();
+            auto top = que.front();//queue没有top方法，栈和优先队列才有，队列只有front和back方法
+            int curx= top.first, cury = top.second;
             que.pop();
             for (auto& dir:dirs) {
                 int x = curx, y = cury;
@@ -79,6 +80,10 @@ public:
         return false;//别忘了最后返回false
     }
 };
+
+
+//和普通dijkstra算法稍有不同的是到单点的最短路径，之前写的是到所有节点的最短路径，因此找到目标节点的最短路径就够了
+//体现在代码上就是终止条件中判断是否等于想判断的点
 https://www.jianshu.com/p/602b2022bdc9 可以看下上面写的答案对比
 505	The Maze II 也是使用dijkstra
 class Solution {
