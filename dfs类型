@@ -1,0 +1,174 @@
+Frog jump:
+将int数组转化成Integer的方法
+    Set<Integer> set = new HashSet<>();
+for (int x : stones) set.add(x);
+class Solution {
+    public boolean canCross(int[] stones) {
+        validpos = IntStream.of(stones).boxed()
+            .collect(Collectors.toCollection(HashSet::new));
+        dp = new HashMap<Integer, Boolean>();
+        lastPos = stones[stones.length - 1];
+        return dfs(0, 0);
+    }
+    private boolean dfs(int pos, int step) {
+        int index = (pos << 10) + step;
+        if (pos >= lastPos) return true;
+        if (dp.containsKey(index)) return dp.get(index);
+        for (int jump = step + 1; jump >= step - 1 && jump > 0; --jump) {//>= not <=
+            if (validpos.contains(pos + jump) && dfs(pos + jump, jump)) {
+                dp.put(index, true);
+                return true;
+            }
+        }
+        dp.put(index, false);
+        return false;
+    }
+    private Map<Integer, Boolean> dp;
+    private Set<Integer> validpos;
+    private int lastPos;
+}
+注意这里的常见错误如下：
+while (que) {
+	int cur = que.peek();
+	if (cur >= stones[stones.size()-1]) return true;
+	for (int i = k - 1; i <= k + 1 && ; ++i) {
+		if (i < 0 || visited.contains(i+cur) || !valids.containes) continue;
+		visited.insert(cur+i);//这样是不对的，因为即使之前可能访问过，如果step不一样的话下一步能到达的地方也不一样，所以要同时记录两个位置
+		que.add(cur+i);
+	}
+}
+return false;
+另一个细节(i=k-1; i<k+1 && i>0;++i)是错误的，有可能刚开始就没进入循环，正确的是必须倒序！这样可以保证刚开始的时候一定可以进入循环。
+
+ 
+Remove invalid parentheses 
+Partition to k equal subsets
+class Solution {
+    public boolean canPartitionKSubsets(int[] nums, int k) {
+        sortnum(nums);
+        int sum = Arrays.stream(nums).sum();
+        if (sum % k != 0) return false;
+        int target = sum / k;//not sum%k
+        boolean visited[] = new boolean[nums.length];
+        Arrays.fill(visited, false);
+        return dfs(0, k, target, 0, nums, visited);
+    }
+    private boolean dfs(int start, int k, int target, int cursum, int[] nums, boolean[] visited) {
+        //System.out.println("start="+start+", k=" + k + ", cursum=" + cursum);
+        if (k == 1) return true;
+        if (cursum > target) return false;
+        if (cursum == target) return dfs(0, k - 1, target, 0, nums, visited);//
+        for (int i = start; i < nums.length; ++i) {
+            if (visited[i] == true) continue;
+            visited[i] = true;
+            if (dfs(i+1, k, target, cursum + nums[i], nums, visited)) return true;
+            visited[i] = false;
+        }
+        return false;
+    }
+    private int[] desnums;
+    private void sortnum(int[] nums) {
+        Arrays.sort(nums);
+        int len = nums.length;
+        for (int i = 0; i < len/2; ++i) {
+            int temp = nums[i];
+            nums[i] = nums[len-1-i];
+            nums[len-1-i] = temp;
+        }
+    }
+}
+Palindrome partitioning
+这题dfs的定义是关键，如果定义从i位置分开就不行，因为这样无法保证不重复，从每个位置分开都可以组成单个的位置，直接从头到尾遍历即可。然后可以分开的条件是start到i位置中间是palindrome
+class Solution {
+    public List<List<String>> partition(String s) {
+        str = s;
+        initdp(str.length());
+        List<String> curlist = new ArrayList<>();
+        result = new ArrayList<List<String>>();
+        dfs(0, curlist);
+        return result;
+    }
+    private void dfs(int start, List<String> curlist) {
+        //System.out.println("start="+start+", curlist="+curlist);
+        if (start == str.length()) {
+            //System.out.println("add list="+curlist);
+            List<String> templist = new ArrayList<String>(curlist);//注意java对象的生命周期
+            result.add(templist);
+            return;
+        }
+        for (int i = start; i < str.length(); ++i) {
+            if (dp[start][i]) {
+                String temp = str.substring(start, i+1);
+                curlist.add(temp);//同一层也需要回溯
+                dfs(i+1, curlist);
+                curlist.remove(curlist.size()-1);
+            }
+        }
+    }
+    private List<List<String>> result;
+    private String str;
+    private boolean dp[][];
+    private void initdp(int len) {
+        dp = new boolean[len][len];
+        for (int i = 0; i < len; ++i) {
+            for (int j = 0; j < len; ++j) dp[i][j] = false;
+        }
+        for (int j = 0; j < len; ++j) {
+            for (int i = j; i>=0; --i) {
+                boolean cond = str.charAt(i) == str.charAt(j);
+                if (i >= j-1) dp[i][j] = cond;
+                else dp[i][j] = (cond && dp[i+1][j-1]);
+            }
+        }
+    }
+}
+注意顺序 dpij = dpi+1j-1 所以i递增，j递减
+同时要保证dp到后面的时候前面已知，i小于j所以先j，这样i一定知道了，所以最外面的循环是j
+Jump game II 
+class Solution {
+    public int jump(int[] nums) {
+        Queue<Integer> que = new LinkedList<>();
+        int last = nums.length - 1;
+        que.add(0);
+        int rightmost = 0;
+        int level = 0;
+        while (true) {
+            int len = que.size();
+            for (int i = 0; i < len; ++i) {
+                int cur = que.remove();
+                if (cur >= last) return level;
+                for (int next = rightmost+1; next <= cur+nums[cur]; ++next) {
+                    que.add(next);
+                }
+                rightmost = Math.max(rightmost, cur+nums[cur]);
+            }
+            ++level;
+        }
+        //return -1;
+    }
+}
+有个细节就是要分清楚那个是上次的，这种有level的bfs要记录队列的大小，每次只能把上一次的全部pop出来，然后才能进行判断
+还有个细节就是这次最远可以跳的要和上次最远跳的比较，那就直接从这步确定最远可以到的直接和上次的比就行了，不用
+第三个就是是否需要visited？不需要，因为每次rightmost右边的肯定比上次大，每次访问的都不一样，所以肯定不需要
+class Solution {
+    public int depthSumInverse(List<NestedInteger> nestedList) {
+        return dfs(0, nestedList);
+    }
+    private int dfs(int presum, List<NestedInteger> nestedList) {
+        int sum = 0;
+        for (NestedInteger nint:nestedList) {
+            if (nint.isInteger()) sum += nint.getInteger();
+            //else sum += dfs(presum, nint);
+        }
+        int deeper = 0;
+        for (NestedInteger nint:nestedList) {
+            //if (!nint.isInteger()) deeper += dfs(sum+presum, nint.getList());
+            if (!nint.isInteger()) deeper += dfs(sum, nint.getList());//错误，不是每个节点加一次，是每一层加一次
+            //else sum += dfs(presum, nint);//所以一定要像答案那样最后一起加  https://segmentfault.com/a/1190000005937820 
+        }
+        return sum + presum + deeper;
+    }
+} 还是直接展开摊平吧
+
+
+
